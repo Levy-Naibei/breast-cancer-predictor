@@ -64,7 +64,3 @@ forest_score
 
 # save the model
 pickle.dump(forest, open('bcmodel.pkl', 'wb'))
-
-# load the model
-model = pickle.load('bcmodel.pkl', 'rb')
-# print(model.predict([]))
