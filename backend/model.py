@@ -18,8 +18,8 @@ import pickle
 # import dataset
 df = pd.read_csv('breastcancer.csv')
 
-# use required features
-# df[['']]
+#use required features
+cdf = df[['diagnosis', 'radius_mean','texture_mean','perimeter_mean','area_mean','smoothness_mean','compactness_mean','concavity_mean','concave points_mean', 'symmetry_mean', 'fractal_dimension_mean']]
 
 """ 
     inspect dataset for empty values from each column - NaN, na, NAN
@@ -34,13 +34,14 @@ df=df.dropna(axis=1)
 sns.countplot(df['diagnosis'], label='Count')
 
 # define dependent and independent features
-X = df.iloc[:, 2:31].values
-Y = df.iloc[:, 1].values
+X = cdf.iloc[:, 1:11].values
+Y = cdf.iloc[:, 0:1].values
 
 # encode catagorical data values - diagnosis
-labelencoder_Y = LabelEncoder()
-Y_L = labelencoder_Y.fit_transform(Y)
-df["Diagnosis_encoded"]=Y_L
+le = LabelEncoder()
+Y_L = le.fit_transform(Y.ravel())
+
+cdf["diagnosis_encoded"]=Y_L
 
 # split dataset into training and test sets
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
